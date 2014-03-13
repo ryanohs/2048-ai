@@ -5,7 +5,7 @@ window.requestAnimationFrame(function () {
 });
 
 function scheduleMove() {
-	setTimeout(move, 200);
+	setTimeout(move, 150);
 }
 
 function move() {
@@ -24,22 +24,22 @@ function findBestMove(movesRemaining, score, cells)
 	var moveScores = [];
 	for(var i = 0; i < 10; i++)
 	{
-		var g = new GameManager(4, NullInputManager, NullHTMLActuator, NullScoreManager, score, cells);
+		var g = new GameSimulator(4, score, cells);
 		g.move(0);
 		if(g.won) return { move: 0, score: 10000000 };
 		moveScores.push({ move: 0, score: findBestMove(movesRemaining - 1, g.score, g.grid.cells).score});
 		
-		g = new GameManager(4, NullInputManager, NullHTMLActuator, NullScoreManager, score, cells);
+		g = new GameSimulator(4, score, cells);
 		g.move(1);
 		if(g.won) return { move: 1, score: 10000000 };
 		moveScores.push({ move: 1, score: findBestMove(movesRemaining - 1, g.score, g.grid.cells).score});
 		
-		g = new GameManager(4, NullInputManager, NullHTMLActuator, NullScoreManager, score, cells);
+		g = new GameSimulator(4, score, cells);
 		g.move(2);
 		if(g.won) return { move: 2, score: 10000000 };
 		moveScores.push({ move: 2, score: findBestMove(movesRemaining - 1, g.score, g.grid.cells).score});
 		
-		g = new GameManager(4, NullInputManager, NullHTMLActuator, NullScoreManager, score, cells);
+		g = new GameSimulator(4, score, cells);
 		g.move(3);
 		if(g.won) return { move: 3, score: 10000000 };
 		moveScores.push({ move: 3, score: findBestMove(movesRemaining - 1, g.score, g.grid.cells).score})
@@ -58,13 +58,3 @@ Array.prototype.clone = function() {
     }
     return arr;
 }
-
-function NullInputManager() {}
-NullInputManager.prototype.on = function() { }
-
-
-function NullScoreManager() {}
-NullScoreManager.prototype.get = function () { return 0; };
-NullScoreManager.prototype.set = function (score) {};
-
-
