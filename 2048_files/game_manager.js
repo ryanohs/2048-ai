@@ -1,8 +1,10 @@
-function GameManager(size, InputManager, Actuator, ScoreManager) {
+function GameManager(size, InputManager, Actuator, ScoreManager, initScore, initGrid) {
   this.size         = size; // Size of the grid
   this.inputManager = new InputManager;
   this.scoreManager = new ScoreManager;
   this.actuator     = new Actuator;
+  this.initScore = initScore;
+  this.initGrid = initGrid != undefined ? initGrid.clone() : null;
 
   this.startTiles   = 2;
 
@@ -20,9 +22,9 @@ GameManager.prototype.restart = function () {
 
 // Set up the game
 GameManager.prototype.setup = function () {
-  this.grid         = new Grid(this.size);
+  this.grid         = new Grid(this.size, this.initGrid);
 
-  this.score        = 0;
+  this.score        = this.initScore || 0;
   this.over         = false;
   this.won          = false;
 

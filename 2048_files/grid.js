@@ -1,7 +1,7 @@
-function Grid(size) {
+function Grid(size, cells) {
   this.size = size;
 
-  this.cells = [];
+  this.cells = cells || [];
 
   this.build();
 }
